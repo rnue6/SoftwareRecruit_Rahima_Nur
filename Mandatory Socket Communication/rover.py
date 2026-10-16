@@ -6,18 +6,22 @@ path = os.getcwd()
 folder = path + "/Mandatory Socket Communication"
 fileName = folder + "/Utah.bmp"
 
-# dunction for reading bitmap file
-def read_bmp_file(file):
+# function for sending bitmap file
+def send_bmp (file):
     readFile = open(file, "rb")
-
-    # read the bitmap file header and DIB header
-    bmpHeader = readFile.read(14)
-    DIBHeader = readFile.read(40)
-    print("BMP Header: ", bmpHeader, "\nDIB Header: ", DIBHeader)
     
-    # read the pixel data
-    pixelData = readFile.read()
+    # creates an endpoint for communication with socket type TCP, connected to the server at 127.0.0.1 on port 5555
+    commEndpoint = socket.create_connection(("127.0.0.1", 5555))
+    
+    while True:
+        # send bitinfo in chunks until there is nothing to send
+        bitInfo = readFile.read(1024)
+        if not bitInfo:
+            break
+        commEndpoint.send(bitInfo)
 
     readFile.close()
+    commEndpoint.close()
 
-read_bmp_file(fileName)
+
+send_bmp(fileName)
