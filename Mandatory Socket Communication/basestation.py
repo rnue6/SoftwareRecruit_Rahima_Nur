@@ -1,7 +1,8 @@
 import socket
+import os
 
 # function for reading bitmap file
-def read_bmp_file():
+def receive_file(file):
     # listen for incoming connections on port 5555
     serverConnection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serverConnection.bind(("127.0.0.1", 5555))
@@ -12,7 +13,7 @@ def read_bmp_file():
     connection, address = serverConnection.accept()
     print(f"Connection established with {address}")
 
-    outputFile = open("output.bmp", "wb")
+    outputFile = open(file, "wb")
     while True:
         # recieve data in chunks of 1024 bytes, break loop if no bytes remaining
         chunkRecv = connection.recv(1024)
@@ -24,4 +25,7 @@ def read_bmp_file():
     connection.close()
     serverConnection.close()
 
-read_bmp_file()
+path = os.getcwd()
+folder = path + "/Mandatory Socket Communication"
+fileName = folder + "/output.bmp"
+receive_file(fileName)
