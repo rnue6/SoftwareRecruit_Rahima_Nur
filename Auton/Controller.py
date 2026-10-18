@@ -16,3 +16,14 @@ class Controller:
         turnCommand = (max(-1, min(1, turnIncrement))) # clamp the turn command between -1 and 1
         return turnCommand
         # heading is updated when timestep is applied, not when turn_cmd is called
+    
+    def drive_cmd(self, targetX, targetY):
+        # Implementation for driving command
+        distance = math.sqrt((targetX - self.x) ** 2 + (targetY - self.y) ** 2)
+        if (distance <= 0.5):
+            return 0 # if the target point is the same as the current position, no driving is needed
+        else:
+            # calculate the distance to the target point pythagorean theorem
+            driveCommand = max(-1, min(1, distance)) # clamp the drive command between -1 (backwards) and 1 (forwards)
+            return driveCommand
+            # position is updated when timestep is applied, not when drive_cmd is called
