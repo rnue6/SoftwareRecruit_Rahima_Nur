@@ -25,3 +25,27 @@ def send_bmp (file):
 
 
 send_bmp(fileName)
+
+def broadcastImage():
+    # creates an endpoint for communication with socket type TCP, connected to the 5 different IP servers
+    servers = ["192.168.16.2", "192.168.16.4", "192.168.16.5", "192.168.16.9", "192.168.16.10"]
+    endpoints = [] # array to store the endpoints for each server for later sending of the bitmap file
+    for ip in servers:
+        endpoint = socket.create_connection((ip, 5555))
+        endpoints.append(endpoint)
+
+    # send the bitmap file to all servers
+    readFile = open(fileName, "rb")
+    while True:
+        bitInfo = readFile.read(1024)
+        if not bitInfo:
+            break
+        # iterate through endpoints array and send file to every connection
+        for endpoint in endpoints:
+            endpoint.send(bitInfo)
+
+    readFile.close()
+
+    # close all endpoints after sending the file
+    for endpoint in endpoints:
+        endpoint.close()
