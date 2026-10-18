@@ -49,3 +49,6 @@ def broadcastImage():
     # close all endpoints after sending the file
     for endpoint in endpoints:
         endpoint.close()
+
+# uncomment to run broadcastImage() function with no receiver
+# broadcastImage() 
