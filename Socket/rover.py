@@ -3,7 +3,7 @@ import socket
 
 # set path to bitmap file
 path = os.getcwd()
-folder = path + "/Mandatory Socket Communication"
+folder = path + "/Socket"
 fileName = folder + "/Utah.bmp"
 
 # function for sending bitmap file

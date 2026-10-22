@@ -1,3 +1,5 @@
+# GitHub: https://github.com/rnue6/SoftwareRecruit_Rahima_Nur 
+
 import socket
 import os
 
@@ -26,6 +28,6 @@ def receive_file(file):
     serverConnection.close()
 
 path = os.getcwd()
-folder = path + "/Mandatory Socket Communication"
+folder = path + "/Socket"
 fileName = folder + "/output.bmp"
 receive_file(fileName)
